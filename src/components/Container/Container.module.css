@@ -1,0 +1,10 @@
+.container {
+  margin: 0 auto;
+  padding: 130px;
+
+  > div {
+    padding: 60px;
+    border-radius: 8px;
+    box-shadow: 0px 16px 48px 0px #b0aac0;
+  }
+}
