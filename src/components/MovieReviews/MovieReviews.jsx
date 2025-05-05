@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { getReviewsById } from "../../services/api";
 import Loader from "../Loader/Loader";
+import css from "./MovieReviews.module.css";
 
 const MovieReviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -31,8 +32,8 @@ const MovieReviews = () => {
       <ul>
         {reviews.length > 0 &&
           reviews.map((review) => (
-            <li key={review.id}>
-              <p>Author: {review.author}</p>
+            <li key={review.id} className={css.item}>
+              <p className={css.heading}>Author: {review.author}</p>
               <p>{review.content}</p>
             </li>
           ))}

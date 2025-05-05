@@ -23,6 +23,7 @@ const HomePage = () => {
 
   return (
     <>
+      <h1>Trending today</h1>
       {loader && <Loader />}
       <MovieList movies={movies} />
     </>
