@@ -28,25 +28,27 @@ const MovieCast = () => {
   }, [movieId]);
 
   return (
-    <ul>
+    <>
       {loader && <Loader />}
-      {cast.length > 0 &&
-        cast.map((actor) => (
-          <li key={actor.id}>
-            <img
-              src={
-                actor.profile_path
-                  ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
-                  : defaultImg
-              }
-              alt={actor.name}
-            />
-            <p>{actor.name}</p>
-            <p>Character: {actor.character}</p>
-          </li>
-        ))}
-      {!loader && cast.length === 0 && <p>No cast information</p>}
-    </ul>
+      <ul>
+        {cast.length > 0 &&
+          cast.map((actor) => (
+            <li key={actor.id}>
+              <img
+                src={
+                  actor.profile_path
+                    ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
+                    : defaultImg
+                }
+                alt={actor.name}
+              />
+              <p>{actor.name}</p>
+              <p>Character: {actor.character}</p>
+            </li>
+          ))}
+        {!loader && cast.length === 0 && <p>No cast information</p>}
+      </ul>
+    </>
   );
 };
 

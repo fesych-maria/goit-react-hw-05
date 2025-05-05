@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, Outlet, useParams } from "react-router-dom";
 import { getMovieById } from "../../services/api";
+import Loader from "../../components/Loader/Loader";
 
 const defaultImg =
   "https://dl-media.viber.com/10/share/2/long/vibes/icon/image/0x0/95e0/5688fdffb84ff8bed4240bcf3ec5ac81ce591d9fa9558a3a968c630eaba195e0.jpg";
@@ -8,54 +9,67 @@ const defaultImg =
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState({});
+  const [loader, setLoader] = useState(false);
+
   useEffect(() => {
     if (!movieId) return;
     const getMovieDetails = async () => {
       try {
+        setLoader(true);
         const data = await getMovieById(movieId);
         setMovie(data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoader(false);
       }
     };
     getMovieDetails();
   }, [movieId]);
+
   const date = new Date(movie.release_date);
+
   return (
     <div>
-      <img
-        src={
-          movie.poster_path
-            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-            : defaultImg
-        }
-        width={250}
-        alt="poster"
-      />
-      <h2>
-        {movie.title} ({date.getFullYear()})
-      </h2>
-      <p>User Score: {Math.round(movie.vote_average * 10)}%</p>
-      <h3>Overview</h3>
-      <p>{movie.overview}</p>
-      <p>Genres</p>
-      <ul>
-        {movie.genres?.map((genre) => (
-          <li key={genre.id}>{genre.name}</li>
-        ))}
-      </ul>
-      <hr></hr>
-      <p>Additional information</p>
-      <ul>
-        <li>
-          <NavLink to="cast">Cast</NavLink>
-        </li>
-        <li>
-          <NavLink to="reviews">Reviews</NavLink>
-        </li>
-      </ul>
-      <hr></hr>
-      <Outlet />
+      {!loader ? (
+        <div>
+          <img
+            src={
+              movie.poster_path
+                ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                : defaultImg
+            }
+            width={250}
+            alt="poster"
+          />
+          <h2>
+            {movie.title} ({date.getFullYear()})
+          </h2>
+          <p>User Score: {Math.round(movie.vote_average * 10)}%</p>
+          <h3>Overview</h3>
+          <p>{movie.overview}</p>
+          <p>Genres</p>
+          <ul>
+            {movie.genres?.map((genre) => (
+              <li key={genre.id}>{genre.name}</li>
+            ))}
+          </ul>
+          <hr></hr>
+          <p>Additional information</p>
+          <ul>
+            <li>
+              <NavLink to="cast">Cast</NavLink>
+            </li>
+            <li>
+              <NavLink to="reviews">Reviews</NavLink>
+            </li>
+          </ul>
+          <hr></hr>
+          <Outlet />
+        </div>
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 };
