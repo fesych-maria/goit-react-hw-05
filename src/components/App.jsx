@@ -1,36 +1,27 @@
 import Container from "./Container/Container";
 import css from "./App.module.css";
-import clsx from "clsx";
-import { NavLink, Route, Routes } from "react-router-dom";
-
-const buildLinkClass = ({ isActive }) => {
-  return clsx(css.link, isActive && css.active);
-};
+import { Route, Routes } from "react-router-dom";
+import MoviesPage from "../pages/MoviesPage/MoviesPage";
+import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
+import HomePage from "../pages/HomePage/HomePage";
+import MovieDetailsPage from "../pages/MovieDetailsPage/MovieDetailsPage";
+import MovieCast from "./MovieCast/MovieCast";
+import MovieReviews from "./MovieReviews/MovieReviews";
+import Navigation from "./Navigation/Navigation";
 
 function App() {
   return (
     <Container>
-      {/* <nav className={css.nav}> */}
-      {/* <NavLink to="/" className={buildLinkClass}>
-          Home
-        </NavLink>
-        <NavLink to="/about" className={buildLinkClass}>
-          About
-        </NavLink>
-        <NavLink to="/products" className={buildLinkClass}>
-          Products
-        </NavLink> */}
-      {/* </nav> */}
-
-      {/* <Routes> */}
-      {/* <Route path="/" element={<Home />} /> */}
-      {/* <Route path="/about" element={<About />}>
-          <Route path="mission" element={<Mission />} />
-          <Route path="team" element={<Team />} />
-          <Route path="reviews" element={<Reviews />} />
+      <Navigation />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/movies" element={<MoviesPage />} />
+        <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
+          <Route path="cast" element={<MovieCast />} />
+          <Route path="reviews" element={<MovieReviews />} />
         </Route>
-        <Route path="*" element={<NotFound />} /> */}
-      {/* </Routes> */}
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </Container>
   );
 }
