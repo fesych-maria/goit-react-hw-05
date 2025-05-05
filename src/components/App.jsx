@@ -2,7 +2,7 @@ import Container from "./Container/Container";
 import { Route, Routes } from "react-router-dom";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import Navigation from "./Navigation/Navigation";
-import { Suspense } from "react";
+import { lazy, Suspense } from "react";
 
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
 const MovieCast = lazy(() => import("./MovieCast/MovieCast"));
