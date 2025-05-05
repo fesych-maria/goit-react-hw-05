@@ -1,8 +1,5 @@
 import axios from "axios";
 
-const url =
-  "https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1";
-
 const options = {
   headers: {
     Authorization:
@@ -11,7 +8,7 @@ const options = {
   },
 };
 
-export const fetchMovies = async () => {
+export const getMovies = async () => {
   const response = await axios.get(
     "https://api.themoviedb.org/3/trending/movie/day?language=en-US",
     options
@@ -38,6 +35,14 @@ export const getMovieCredits = async (movieId) => {
 export const getReviewsById = async (movieId) => {
   const response = await axios.get(
     `https://api.themoviedb.org/3/movie/${movieId}/reviews?language=en-US&page=1`,
+    options
+  );
+  return response.data.results;
+};
+
+export const getMoviesByQuery = async (query) => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`,
     options
   );
   return response.data.results;

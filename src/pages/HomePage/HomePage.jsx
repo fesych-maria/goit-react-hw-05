@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchMovies } from "../../services/api";
+import { getMovies } from "../../services/api";
 import MovieList from "../../components/MovieList/MovieList";
 import Loader from "../../components/Loader/Loader";
 
@@ -7,10 +7,10 @@ const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [loader, setLoader] = useState(false);
   useEffect(() => {
-    const getMovies = async () => {
+    const getData = async () => {
       try {
         setLoader(true);
-        const data = await fetchMovies();
+        const data = await getMovies();
         setMovies(data.results);
       } catch (error) {
         console.log(error);
@@ -18,7 +18,7 @@ const HomePage = () => {
         setLoader(false);
       }
     };
-    getMovies();
+    getData();
   }, []);
 
   return (
