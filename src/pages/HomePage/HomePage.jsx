@@ -6,7 +6,6 @@ import Loader from "../../components/Loader/Loader";
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
   const [loader, setLoader] = useState(false);
-
   useEffect(() => {
     const getMovies = async () => {
       try {

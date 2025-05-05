@@ -1,5 +1,11 @@
-import { useEffect, useState } from "react";
-import { NavLink, Outlet, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import { getMovieById } from "../../services/api";
 import Loader from "../../components/Loader/Loader";
 
@@ -10,6 +16,8 @@ const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState({});
   const [loader, setLoader] = useState(false);
+  const location = useLocation();
+  const goBackRef = useRef(location.state ?? "/movies");
 
   useEffect(() => {
     if (!movieId) return;
@@ -33,6 +41,7 @@ const MovieDetailsPage = () => {
     <div>
       {!loader ? (
         <div>
+          <Link to={goBackRef.current}>Go back</Link>
           <img
             src={
               movie.poster_path
