@@ -12,7 +12,7 @@ const MoviesPage = () => {
   const query = searchParams.get("query");
   const handleChangeQuery = (newQuery) => {
     if (!newQuery) {
-      searchParams.delete(query);
+      searchParams.delete("query");
       return setSearchParams(searchParams);
     }
     searchParams.set("query", newQuery);
